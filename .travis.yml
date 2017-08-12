@@ -1,0 +1,20 @@
+language: python
+python:
+  - "3.5"
+services:
+  - postgresql
+install:
+  # install dependencies
+  - pip install -r requirements.txt
+  # install testing tools
+  - pip install coverage
+  - pip install coveralls
+  - pip install pep8
+script:
+  # PEP8 Style Checks
+  - pep8 --show-source src/ test/
+  # Run tests and collect coverage information
+  - coverage run --source='.' hakureiexpo/manage.py test
+cache: pip
+after_success:
+  coveralls
