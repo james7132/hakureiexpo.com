@@ -1,0 +1,12 @@
+{% if submission_list %}
+<ul>
+  {% for submission in submission_list %}
+  <li>
+    <a href="{% url 'submission view' submission.id %}">
+      {{submission.name}} - {{submission.publish_date}}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>There are currently no submissions.</p>
+{% endif %}

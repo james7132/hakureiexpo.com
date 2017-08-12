@@ -97,5 +97,8 @@ ENV/
 # mkdocs documentation
 /site
 
+# Test Databases
+*.sqlite3
+
 # mypy
 .mypy_cache/
