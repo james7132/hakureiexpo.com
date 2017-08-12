@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'main.apps.MainConfig',
+    'core.apps.CoreConfig',
     'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,8 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hakureiexpo.wsgi.application'
 
-HTML_MINIFY = True
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -99,9 +97,10 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.google.GoogleOAuth',
     'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.yahoo.YahooOpenId',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+AUTH_USER_MODEL = 'core.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

@@ -1,0 +1,15 @@
+<h1>{{ circle.name }}</h1>
+<h2>Submissions</h2>
+{% if circle.submissions %}
+<ul>
+{% for submission in circle.submissions %}
+<li>
+ <a href="{% url submission.view circle.name submission.name %}">
+    {{ submission.name }}
+  </a>
+</li>
+{% endfor %}
+<ul>
+{% else %}
+<p>This circle has not made any submissions</p>
+{% endif %}
