@@ -1,2 +1,8 @@
+beautifulsoup4==4.6.0
 Django==1.11.4
+django-htmlmin==0.10.0
+html5lib==0.999999999
+psycopg2==2.7.3
 pytz==2017.2
+six==1.10.0
+webencodings==0.5.1
