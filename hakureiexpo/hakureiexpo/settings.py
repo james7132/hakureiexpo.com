@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'autofixture',
+
     'bootstrap3',
     'django_extensions',
 

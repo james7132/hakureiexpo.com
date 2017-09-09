@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Submission</h2>
+    <ul>
+        {% for submission in submissions %}
+        <li><a href="{% url 'submission:detail' submission.slug %}">
+            {{ submission.title }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+

@@ -20,10 +20,16 @@ def submission_image_upload(instance, filename):
 class SubmissionType(models.Model):
     name = models.CharField(max_length=256)
 
+    def __str__(self):
+        return self.name
+
 
 class SubmissionSubType(models.Model):
     name = models.CharField(max_length=256)
     type = models.ForeignKey(SubmissionType)
+
+    def __str__(self):
+        return self.name
 
 
 class Submission(models.Model):
@@ -44,6 +50,9 @@ class Submission(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def absolute_url(self):
+        return reverse('submission:detail', kwargs={'slug': self.slug})
 
 class SubmissionLike(models.Model):
     submission = models.ForeignKey(Submission)

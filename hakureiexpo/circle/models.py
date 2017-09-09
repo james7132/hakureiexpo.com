@@ -3,7 +3,6 @@ from django.utils.crypto import get_random_string
 
 from contributor.models import Contributor
 
-
 def populate_circle_slug():
     while True:
         slug = get_random_string(8)

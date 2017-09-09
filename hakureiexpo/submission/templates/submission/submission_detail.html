@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ submission.title }}</h1>
+
+  <span>
+  <a href="{% url 'submission:update' submission.slug %}">
+    Edit
+  </a>
+  </span>
+  <span>
+    <a href="{% url 'submission:delete' submission.slug %}">
+      Delete
+    </a>
+  </span>
+
+  {% if submission.image %}
+  <img src="{{ submission.image }}"/>
+  {% endif %}
+  {% if submission.circle %}
+  <span>Circle:{{ submission.circle }}</span>
+  {% endif %}
+  <span>Link:{{ submission.external_link }}</span>
+
+  <h3>Contributors</h3>
+
+  <h2>Comments</h2>
+  {% for comment in submission.comments %}
+    {{ comment.user.display_name }}
+    {{ comment.comment_time }}
+    {% autoescape on %}
+      {{ comment.comment }}
+    {% endautoescape %}
+  {% endfor %}
+</div>
+{% endblock %}
+
