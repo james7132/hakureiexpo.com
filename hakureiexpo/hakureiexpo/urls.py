@@ -19,5 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^submission/', include('submission.urls', namespace='submission')),
+    url(r'^circle/', include('circle.urls', namespace='circle')),
     url(r'.*', include('core.urls')),
 ]

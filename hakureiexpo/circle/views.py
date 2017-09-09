@@ -21,7 +21,7 @@ class CircleCreate(CreateView):
 
 
 class CircleUpdate(UpdateView):
-    model = Submission
+    model = Circle
     fields = [
         'name',
         'contributors'
