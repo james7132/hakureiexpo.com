@@ -29,9 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
-    'core.apps.CoreConfig',
     'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'bootstrap3',
+    'django_extensions',
+
+    'core.apps.CoreConfig',
+    'circle.apps.CircleConfig',
+    'contributor.apps.ContributorConfig',
+    'submission.apps.SubmissionConfig',
+
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,8 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'hakureiexpo',
-        'USER': 'james',
-        'PASSWORD': 'james7132',
+        'USER': 'django',
+        'PASSWORD': 'django',
         'HOST': 'localhost'
     }
 }
@@ -101,8 +107,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
-
-AUTH_USER_MODEL = 'core.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

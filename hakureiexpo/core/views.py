@@ -1,9 +1,10 @@
 import urllib
+
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 
-from .models import Submission, Circle
-
-# Create your views here.
+from circle.models import Circle
+from submission.models import Submission
 
 
 def index(request):
