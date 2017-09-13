@@ -31,11 +31,18 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="/circle/list">Circles</a></li>
             <li><a href="/submission/list">Submissions</a></li>
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+              <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+            <li><a href="#">Sign Up</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <div class="content">
+      <h1>{% block title %}{% endblock %}</h1>
       {% block content %}
       {% endblock %}
     </div>
