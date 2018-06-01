@@ -3,5 +3,35 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /.*
+- url: /api/.*
   script: main.app
+- url: /(.*\.(css|eot|gz|html|ico|js|map|png|svg|ttf|woff|woff2))
+  static_files: client/dist/\1
+  upload: client/dist/(.*\.(css|eot|gz|html|ico|js|map|png|svg|ttf|woff|woff2))
+- url: /.*
+  static_files: client/dist/index.html
+  upload: client/dist/index.html
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?tests$
+- ^(.*/)?test$
+- ^(.*/)?node_modules(.*)?$
+- ^test/(.*/)?
+- ^COPYING.LESSER
+- ^README\..*
+- \.gitignore
+- ^\.git/.*
+- \.*\.lint$
+- ^fabfile\.py
+- ^testrunner\.py
+- ^grunt\.js
+- ^node_modules/(.*/)?
+- ^src/(.*/)?
+- ^e2e/(.*/)?
