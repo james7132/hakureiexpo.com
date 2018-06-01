@@ -7,7 +7,7 @@ cache:
     - client/node_modules
 install:
   - npm install --prefix=client
-build:
+script:
   - npm run build --prefix=client
 deploy:
   provider: gae
