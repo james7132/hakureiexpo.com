@@ -1,4 +1,10 @@
 language: node_js
+dist: trusty
+sudo: false
+node_js: 10
+cache:
+  directories:
+    - client/node_modules
 install:
   - npm install --prefix=client
 build:
