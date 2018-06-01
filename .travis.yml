@@ -16,4 +16,5 @@ deploy:
   provider: gae
   keyfile: deploy/client-secret.json
   project: hakurei-expo
+  skip_cleanup: true
   on: develop
