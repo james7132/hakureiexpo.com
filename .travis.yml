@@ -1,0 +1,10 @@
+language: node_js
+install:
+  - npm install --prefix=client
+build:
+  - npm run build --prefix=client
+deploy:
+  provider: gae
+  keyfile: deploy/client-secret.json.enc
+  project: hakurei-expo
+  on: develop
