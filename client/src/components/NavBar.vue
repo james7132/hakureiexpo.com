@@ -6,7 +6,6 @@
     <b-navbar-brand to="/">Hakurei Expo</b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
-
       <b-navbar-nav>
         <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
@@ -14,7 +13,7 @@
         <b-nav-item to="/circles">Circles</b-nav-item>
       </b-navbar-nav>
 
-      <!-- Right aligned nav items -->
+      <!-- Authenticated aligned nav items -->
       <b-navbar-nav class="ml-auto" v-if="currentUser">
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
@@ -25,7 +24,7 @@
           <b-dropdown-item href="#">New Circle</b-dropdown-item>
         </b-nav-item-dropdown>
 
-        <b-nav-item-dropdown right v-if="currentUser">
+        <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
             <em>{{displayName}}</em>
@@ -35,6 +34,11 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
+      <!-- Unauthenticated right aligned nav items -->
+      <b-navbar-nav class="ml-auto" v-if="!currentUser">
+        <b-nav-item to="/login">Login</b-nav-item>
+        <b-nav-item to="/register">Sign Up</b-nav-item>
+      </b-navbar-nav>
     </b-collapse>
   </b-container>
 </b-navbar>
