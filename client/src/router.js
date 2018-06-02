@@ -5,9 +5,12 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import About from './views/About.vue'
 
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   routes: [
     {
@@ -32,3 +35,16 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+
+  if (requiresAuth && !currentUser) {
+    next('login')
+  } else {
+    next()
+  }
+})
+
+export default router
