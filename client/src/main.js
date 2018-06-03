@@ -18,4 +18,5 @@ firebase.auth().onAuthStateChanged(function (user) {
     router,
     render: h => h(App)
   })
+  console.log(app.api)
 })
