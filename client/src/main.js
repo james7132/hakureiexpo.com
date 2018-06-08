@@ -5,6 +5,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import firebase from './firebase.config.js'
+import './api'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.config.productionTip = false
@@ -18,5 +19,4 @@ firebase.auth().onAuthStateChanged(function (user) {
     router,
     render: h => h(App)
   })
-  console.log(app.api)
 })

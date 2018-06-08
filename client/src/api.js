@@ -13,7 +13,6 @@ class Resource {
 class API {
   constructor (env) {
     let baseURL = `${env.VUE_APP_BACKEND_DOMAIN}/api/v${env.VUE_APP_API_VERSION}`
-    console.log(baseURL)
     let http = axios.create({
       baseURL: baseURL
     })
