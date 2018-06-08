@@ -7,10 +7,17 @@
 
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav>
-        <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+        <b-nav-form right class="my-auto">
+          <b-input-group>
+            <b-form-input size="sm" type="search" placeholder="Search"/>
+            <b-input-group-append>
+              <b-btn>
+                <font-awesome-icon icon="search" />
+              </b-btn>
+            </b-input-group-append>
+          </b-input-group>
         </b-nav-form>
-        <b-nav-item to="/circles">Circles</b-nav-item>
+        <b-nav-item class="nav-item" to="/circles">Circles</b-nav-item>
       </b-navbar-nav>
 
       <!-- Authenticated aligned nav items -->
@@ -45,6 +52,8 @@
 </template>
 
 <script>
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -79,6 +88,9 @@ let vm = {
       data.currentUser = user
       data.displayName = getDisplayName(user)
     })
+  },
+  components: {
+    FontAwesomeIcon
   }
 }
 export default vm
@@ -93,6 +105,10 @@ export default vm
 
 #create-dropdown {
   font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-item {
   font-weight: bold;
 }
 </style>

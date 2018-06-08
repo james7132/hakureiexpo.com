@@ -6,6 +6,7 @@ import App from './App.vue'
 import router from './router'
 import firebase from './firebase.config.js'
 import './api'
+import './fa'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.config.productionTip = false
