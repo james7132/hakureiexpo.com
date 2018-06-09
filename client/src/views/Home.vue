@@ -1,22 +1,26 @@
 <template>
-  <b-container>
-    <b-table hover :items='items'></b-table>
-  </b-container>
+<b-container>
+  <h1>Test Hakurei Expo Site</h1>
+  <ul>
+    <li v-for='item in links'>
+      <router-link :to='item.link'>
+        <span> {{ item.text }}</span>
+      </router-link>
+    </li>
+  </ul>
+</b-container>
 </template>
 
 <script>
-const items = [
-  { name: 'Fantasy Crescendo', creator: 'Hourai Teahouse', type: 'Fangame' },
-  { name: 'Danmaku!!', creator: 'Mystery Parifait', type: 'Fangame' },
-  { name: 'NitorInc: Touhou Microgames', creator: 'NitorInc', type: 'Fangame' },
-  { name: 'PC-69 Project', creator: 'Pantsu Syndicate', type: 'Artbook' },
-  { name: 'Touhou Orchestral Suite', creator: 'crescentia', type: 'Music (Album)' }
-]
-
 export default {
   data: function () {
     return {
-      items: items
+      links: [
+        {
+          text: 'Test Post View',
+          link: 'post'
+        }
+      ]
     }
   }
 }

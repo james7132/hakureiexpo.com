@@ -1,6 +1,6 @@
 <template>
 <b-navbar toggleable="md" type="dark" variant="dark">
-  <b-container>
+  <b-container fluid>
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand to="/">Hakurei Expo</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">

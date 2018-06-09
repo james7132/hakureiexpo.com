@@ -6,6 +6,7 @@ import Register from './views/Register.vue'
 import About from './views/About.vue'
 
 import PostList from './views/posts/PostList.vue'
+import Post from './views/posts/Post.vue'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -36,10 +37,15 @@ let router = new Router({
       component: Register
     },
     {
-      path: '/posts',
-      name: 'postList',
-      component: PostList
+      path: '/post',
+      name: 'post',
+      component: Post
     }
+    //{
+      //path: '/posts',
+      //name: 'postList',
+      //component: PostList
+    //}
   ]
 })
 

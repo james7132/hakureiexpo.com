@@ -13,7 +13,7 @@
   <b-nav-item-dropdown right no-caret>
     <!-- Using button-content slot -->
     <template slot="button-content">
-      <b-img :src="avatarUrl" id="avatar"/>
+      <Avatar :src="currentUser.photoUrl" :width="'30px'" :height="'30px'"/>
     </template>
     <b-dropdown-item href="#">Profile</b-dropdown-item>
     <b-dropdown-item v-on:click="logout">Logout</b-dropdown-item>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import Avatar from '@/components/user/Avatar.vue'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -48,11 +49,6 @@ let vm = {
       displayName: getDisplayName(user)
     })
   },
-  computed: {
-    avatarUrl: function () {
-      return this.currentUser.photoURL || require('@/static/img/avatar_default.jpg')
-    }
-  },
   methods: {
     logout: () => firebase.auth().signOut()
   },
@@ -61,18 +57,15 @@ let vm = {
       data.currentUser = user
       data.displayName = getDisplayName(user)
     })
+  },
+  components: {
+    Avatar
   }
 }
 export default vm
 </script>
 
-<style scoped lang="scss">
-#avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-
+<style scoped>
 #create-dropdown {
   font-size: 20px;
   font-weight: bold;
