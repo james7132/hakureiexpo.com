@@ -1,5 +1,5 @@
 <template>
-<b-img :src='avatarUrl' id='avatar' :width='width' :height='height'/>
+<b-img :src='avatarUrl' class='avatar' :width='width' :height='height'/>
 </template>
 
 <script>
@@ -27,8 +27,8 @@ export default {
 }
 </script>
 
-<style scoped>
-#avatar {
+<style>
+.avatar {
   border-radius: 50%;
 }
 </style>

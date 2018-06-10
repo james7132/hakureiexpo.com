@@ -1,7 +1,7 @@
 <template>
 <div id="login" class="container">
   <br>
-  <b-input type="text" v-model="email"placeholder="Email"></b-input><br>
+  <b-input type="text" v-model="email" placeholder="Email"></b-input><br>
   <b-input type="password" v-model="password" placeholder="Password"></b-input><br>
   <b-input type="password" v-model="passwordVerify" placeholder="Password Again"></b-input><br>
   <b-button v-on:click="signUp">Sign Up</b-button>
@@ -33,13 +33,13 @@ export default {
           function (err) {
             alert(`Error: ${err.message}`)
           }
-        );
+        )
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 #login {
   text-align: center
 }

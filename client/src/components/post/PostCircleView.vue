@@ -22,7 +22,9 @@ export default {
 
 <style scoped>
 #avatar {
-  display: inline-block;
-  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

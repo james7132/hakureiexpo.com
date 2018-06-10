@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>{{ title }}</h1>
+  <h1 id="title" class="margin-split">{{ title }}</h1>
   <div class="margin-split">
     <b-img src="http://via.placeholder.com/400x300" fluid/>
   </div>
@@ -22,7 +22,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#title {
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+
 .margin-split {
   margin-bottom: 2.5%;
 }

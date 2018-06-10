@@ -65,7 +65,7 @@ let vm = {
 export default vm
 </script>
 
-<style scoped>
+<style>
 #create-dropdown {
   font-size: 20px;
   font-weight: bold;
