@@ -19,7 +19,11 @@ export default {
         {
           text: 'Test Post View',
           link: 'post'
-        }
+        },
+        {
+          text: 'Test User Profile View',
+          link: 'user'
+        },
       ]
     }
   }
