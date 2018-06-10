@@ -4,9 +4,7 @@
   <div class="margin-split">
     <b-img src="http://via.placeholder.com/400x300" fluid/>
   </div>
-  <div class="margin-split">
-    {{ description }}
-  </div>
+  <vue-markdown class="margin-split" :source="description"/>
   <div class="tag" v-for="tag in tags">
     {{ tag }}
   </div>
@@ -14,8 +12,13 @@
 </template>
 
 <script>
+import VueMarkdown from 'vue-markdown'
+
 export default {
-  props: ['title', 'tags', 'description']
+  props: ['title', 'tags', 'description'],
+  components: {
+    VueMarkdown
+  }
 }
 </script>
 
