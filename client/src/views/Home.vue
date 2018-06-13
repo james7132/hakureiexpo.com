@@ -23,7 +23,7 @@ export default {
         {
           text: 'Test User Profile View',
           link: 'user'
-        },
+        }
       ]
     }
   }
