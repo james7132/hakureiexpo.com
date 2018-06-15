@@ -24,8 +24,11 @@ export default {
       avatar_url: null,
       social_media: {
         facebook: 'https://facebook.com/james7132',
-        github: 'james7132',
-        patreon: 'james7132'
+        twitter: 'https://twitter.com/james7132',
+        google: 'https://plus.google.com/james7132',
+        tumblr: 'https://plus.google.com/james7132',
+        github: 'https://github.com/james7132',
+        patreon: 'https://patreon.com/james7132'
       }
     }
   },
