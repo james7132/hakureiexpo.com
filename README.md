@@ -5,6 +5,24 @@
 Website for Hakurei Expo, a global annual event for doujin creators to share
 their works with the community.
 
+## Architecture
+
+ * Frontend: Vue.js Single Page Application
+ * Backend: Google Cloud Endpoints REST API built on Google App Engine (Python)
+
+# Project Setup
+
+ * Client (Under the `client` directory):
+  * Install node.js and npm
+  * Run `npm install` to install required node packages.
+ * Server (Under the project root directory):
+  * Install python 2.x and pip (NOTE: this project does NOT work with python 3.x+)
+  * Make a `lib` folder: (e.g. `mkdir lib`)
+  * Run `pip install --target lib --requirement requirements.txt`. You may need
+    to execute with escalated priviledges. This may also invoke native binary
+    builds. If on Linux, be sure to have the `build-essential` package installed
+    on your machine.
+
 ## Development
 
 This project is built on Vue.js on the frontend and webapp2, intended to be used

@@ -3,14 +3,26 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /api/.*
-  script: main.app
+- url: /_ah/api/.*
+  script: api.main.api
 - url: /(.*\.(css|eot|gz|html|ico|js|map|png|svg|ttf|woff|woff2))
   static_files: client/dist/\1
   upload: client/dist/(.*\.(css|eot|gz|html|ico|js|map|png|svg|ttf|woff|woff2))
 - url: /.*
   static_files: client/dist/index.html
   upload: client/dist/index.html
+
+libraries:
+- name: pycrypto
+  version: 2.6
+- name: ssl
+  version: 2.7.11
+
+env_variables:
+  # The following values are to be replaced by information from the output of
+  # 'gcloud endpoints services deploy swagger.json' command.
+  ENDPOINTS_SERVICE_NAME: hakurei-expo.appspot.com
+  ENDPOINTS_SERVICE_VERSION: 2016-08-01r0
 
 skip_files:
 - ^(.*/)?app\.yaml
