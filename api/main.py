@@ -1,3 +1,4 @@
-from api.users import UsersApi
+import endpoints
+from api import api_collection
 
-api = endpoints.api_server([UsersApi])
+api = endpoints.api_server([api_collection])
