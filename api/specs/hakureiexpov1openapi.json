@@ -1,0 +1,265 @@
+{
+  "basePath": "/_ah/api",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "ApiUsersCurrentUserRequest": {
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ApiUsersCurrentUserResponse": {
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ApiUsersUserResponse": {
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "hakurei-expo.appspot.com",
+  "info": {
+    "title": "hakurei-expo",
+    "version": "v1"
+  },
+  "paths": {
+    "/hakurei-expo/v1/@me": {
+      "delete": {
+        "operationId": "UsersApi_deleteCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response"
+          }
+        }
+      },
+      "get": {
+        "operationId": "UsersApi_getCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersCurrentUserResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "UsersApi_createCurrentUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersCurrentUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersCurrentUserResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "UsersApi_updateCurrentUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersCurrentUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersCurrentUserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/{username}": {
+      "get": {
+        "operationId": "UsersApi_getUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersUserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/{username}/posts": {
+      "get": {
+        "operationId": "UsersApi_listUserPosts",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersUserResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "UsersApi_createUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "format": "int32",
+            "in": "query",
+            "name": "post_id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersUserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/{username}/posts/{post_id}": {
+      "delete": {
+        "operationId": "UsersApi_deleteUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersUserResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "UsersApi_getUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersUserResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "UsersApi_updateUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiUsersUserResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "google_id_token": {
+      "authorizationUrl": "",
+      "flow": "implicit",
+      "type": "oauth2",
+      "x-google-issuer": "https://accounts.google.com",
+      "x-google-jwks_uri": "https://www.googleapis.com/oauth2/v3/certs"
+    }
+  },
+  "swagger": "2.0"
+}
