@@ -12,9 +12,60 @@
       },
       "type": "object"
     },
-    "ApiUsersCurrentUserResponse": {
+    "ApiUsersUserPostListResponse": {
       "properties": {
-        "content": {
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/ApiUsersUserPostSummary"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ApiUsersUserPostResponse": {
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_updated": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "published": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "author",
+        "author_id",
+        "created_at",
+        "id",
+        "last_updated"
+      ],
+      "type": "object"
+    },
+    "ApiUsersUserPostSummary": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
           "type": "string"
         }
       },
@@ -22,10 +73,37 @@
     },
     "ApiUsersUserResponse": {
       "properties": {
-        "content": {
+        "bio": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_updated": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "username": {
           "type": "string"
         }
       },
+      "required": [
+        "created_at",
+        "id",
+        "last_updated",
+        "username"
+      ],
       "type": "object"
     }
   },
@@ -52,7 +130,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersCurrentUserResponse"
+              "$ref": "#/definitions/ApiUsersUserResponse"
             }
           }
         }
@@ -72,7 +150,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersCurrentUserResponse"
+              "$ref": "#/definitions/ApiUsersUserResponse"
             }
           }
         }
@@ -92,13 +170,13 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersCurrentUserResponse"
+              "$ref": "#/definitions/ApiUsersUserResponse"
             }
           }
         }
       }
     },
-    "/hakurei-expo/v1/{username}": {
+    "/hakurei-expo/v1/users/{username}": {
       "get": {
         "operationId": "UsersApi_getUser",
         "parameters": [
@@ -119,7 +197,7 @@
         }
       }
     },
-    "/hakurei-expo/v1/{username}/posts": {
+    "/hakurei-expo/v1/users/{username}/posts": {
       "get": {
         "operationId": "UsersApi_listUserPosts",
         "parameters": [
@@ -134,7 +212,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiUsersUserPostListResponse"
             }
           }
         }
@@ -165,7 +243,7 @@
         }
       }
     },
-    "/hakurei-expo/v1/{username}/posts/{post_id}": {
+    "/hakurei-expo/v1/users/{username}/posts/{post_id}": {
       "delete": {
         "operationId": "UsersApi_deleteUserPost",
         "parameters": [
@@ -185,10 +263,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
-            }
+            "description": "A successful response"
           }
         }
       },
@@ -213,7 +288,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiUsersUserPostResponse"
             }
           }
         }
@@ -239,7 +314,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiUsersUserPostResponse"
             }
           }
         }
