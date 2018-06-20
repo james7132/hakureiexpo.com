@@ -1,4 +1,5 @@
 import endpoints
+from .cache import AccountNameCache
 from .messages import *
 from .exceptions import NotFoundException
 from google.appengine.ext import ndb
@@ -51,7 +52,7 @@ class Account(polymodel.PolyModel, TimingMixin):
 
     @classmethod
     def get_by_name(cls, name, **kwargs):
-        return next(cls.query(cls.name == name, **kwargs).fetch(1), None)
+        return AccountNameCache(cls).get(name)
 
     def get_post(self, post_id):
         return ndb.Key(Post, post_id, parent=self.key).get()
