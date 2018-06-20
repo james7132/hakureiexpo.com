@@ -4,26 +4,56 @@
     "application/json"
   ],
   "definitions": {
-    "ApiUsersCurrentUserRequest": {
+    "ApiCirclesCircleResponse": {
       "properties": {
-        "content": {
+        "bio": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_updated": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       },
+      "required": [
+        "created_at",
+        "id",
+        "last_updated",
+        "name"
+      ],
       "type": "object"
     },
-    "ApiUsersUserPostListResponse": {
+    "ApiPostsPostListResponse": {
       "properties": {
+        "author_id": {
+          "type": "string"
+        },
         "posts": {
           "items": {
-            "$ref": "#/definitions/ApiUsersUserPostSummary"
+            "$ref": "#/definitions/ApiPostsPostSummary"
           },
           "type": "array"
         }
       },
       "type": "object"
     },
-    "ApiUsersUserPostResponse": {
+    "ApiPostsPostResponse": {
       "properties": {
         "author": {
           "type": "string"
@@ -60,12 +90,20 @@
       ],
       "type": "object"
     },
-    "ApiUsersUserPostSummary": {
+    "ApiPostsPostSummary": {
       "properties": {
         "description": {
           "type": "string"
         },
         "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ApiUsersCurrentUserRequest": {
+      "properties": {
+        "content": {
           "type": "string"
         }
       },
@@ -176,6 +214,456 @@
         }
       }
     },
+    "/hakurei-expo/v1/circles": {
+      "post": {
+        "operationId": "CirclesApi_createCircle",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/circles/{author}/posts": {
+      "get": {
+        "operationId": "CirclePostsApi_listUserPosts",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "post_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostListResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "CirclePostsApi_createUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "post_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/circles/{author}/posts/{post_id}": {
+      "delete": {
+        "operationId": "CirclePostsApi_deleteUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response"
+          }
+        }
+      },
+      "get": {
+        "operationId": "CirclePostsApi_getUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "CirclePostsApi_updateUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/circles/{name}": {
+      "delete": {
+        "operationId": "CirclesApi_deleteCircle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "CirclesApi_getCircle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "CirclesApi_updateCircle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/circles/{name}/members": {
+      "get": {
+        "operationId": "CirclesApi_listCircleMembers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "CirclesApi_createCircleMember",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "member_username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/circles/{name}/members/{member_username}": {
+      "delete": {
+        "operationId": "CirclesApi_deleteCircleMember",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "member_username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "CirclesApi_getCircleMember",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "member_username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "CirclesApi_updateCircleMember",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "member_username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiCirclesCircleResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/users/{author}/posts": {
+      "get": {
+        "operationId": "UserPostsApi_listUserPosts",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "post_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostListResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "UserPostsApi_createUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "post_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hakurei-expo/v1/users/{author}/posts/{post_id}": {
+      "delete": {
+        "operationId": "UserPostsApi_deleteUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response"
+          }
+        }
+      },
+      "get": {
+        "operationId": "UserPostsApi_getUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "UserPostsApi_updateUserPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "author",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ApiPostsPostResponse"
+            }
+          }
+        }
+      }
+    },
     "/hakurei-expo/v1/users/{username}": {
       "get": {
         "operationId": "UsersApi_getUser",
@@ -192,129 +680,6 @@
             "description": "A successful response",
             "schema": {
               "$ref": "#/definitions/ApiUsersUserResponse"
-            }
-          }
-        }
-      }
-    },
-    "/hakurei-expo/v1/users/{username}/posts": {
-      "get": {
-        "operationId": "UsersApi_listUserPosts",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "username",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiUsersUserPostListResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "operationId": "UsersApi_createUserPost",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "username",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "format": "int32",
-            "in": "query",
-            "name": "post_id",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
-            }
-          }
-        }
-      }
-    },
-    "/hakurei-expo/v1/users/{username}/posts/{post_id}": {
-      "delete": {
-        "operationId": "UsersApi_deleteUserPost",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "username",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "format": "int32",
-            "in": "path",
-            "name": "post_id",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response"
-          }
-        }
-      },
-      "get": {
-        "operationId": "UsersApi_getUserPost",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "username",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "format": "int32",
-            "in": "path",
-            "name": "post_id",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiUsersUserPostResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "UsersApi_updateUserPost",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "username",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "format": "int32",
-            "in": "path",
-            "name": "post_id",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiUsersUserPostResponse"
             }
           }
         }
