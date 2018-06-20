@@ -1,33 +1,19 @@
 import endpoints
+from .messages import PostMessage, PostListMessage
+from .util import copy_attrs
 from .models import Circle, User
 from api import api_collection
+from google.appengine.ext import ndb
 from protorpc import message_types, messages, remote
 
-
-class PostResponse(messages.Message):
-    created_at = message_types.DateTimeField(1, required=True)
-    last_updated = message_types.DateTimeField(2, required=True)
-    author = messages.StringField(3, required=True)
-    author_id = messages.StringField(4, required=True)
-    id = message_types.DateTimeField(5, required=True)
-    published = message_types.DateTimeField(6, required=False)
-    description = messages.StringField(7, required=False)
-
-
-class PostSummary(messages.Message):
-    id = messages.StringField(1)
-    description = messages.StringField(2)
-
-
-class PostListResponse(messages.Message):
-    author_id = messages.StringField(1)
-    posts = messages.MessageField(PostSummary, 2, repeated=True)
 
 
 POST_RESOURCE = endpoints.ResourceContainer(
     message_types.VoidMessage,
     author=messages.StringField(2, required=True),
     post_id=messages.StringField(3, required=False))
+
+POSTS_PER_RESPONSE = 20
 
 
 def post_api(root_model_class, root):
@@ -37,37 +23,52 @@ def post_api(root_model_class, root):
 
         @endpoints.method(
             POST_RESOURCE,
-            PostListResponse,
+            PostListMessage,
             path=root + '/{author}/posts',
             http_method='GET')
         def list_user_posts(self, request):
-            return PostResponse(content=request.content)
+            account = root_model_class.get_by_name(request.author)
+            if not account:
+                raise NotFoundException('Author not found')
+            posts = account.query_posts().fetch(POSTS_PER_RESPONSE)
+            return PostListMessage.to_summaries(account, posts)
 
         @endpoints.method(
             POST_RESOURCE,
-            PostResponse,
+            PostMessage,
             path=root + '/{author}/posts',
             http_method='POST')
+        @ndb.transactional
         def create_user_post(self, request):
-            user = endpoints.get_user()
-            return PostResponse(content=request.content)
+            # TODO(james7132): Make this validate that the user is a part of the
+            # circle and not just make it under the user
+            author = User.get_current_user()
+            # TODO(james7132): Remove this placeholdder
+            post = author.create_post('test')
+            post.put()
+            return post.to_message()
 
         @endpoints.method(
             POST_RESOURCE,
-            PostResponse,
+            PostMessage,
             path=root + '/{author}/posts/{post_id}',
             http_method='GET')
         def get_user_post(self, request):
-            return PostResponse(content=request.content)
+            author = root_model_class.get_by_name(request.author)
+            post = author.get_post(request.post_id) if author else None
+            if not post:
+                raise NotFoundException('Post not found.')
+            return post.to_message()
 
         @endpoints.method(
             POST_RESOURCE,
-            PostResponse,
+            PostMessage,
             path=root + '/{author}/posts/{post_id}',
             http_method='PUT')
         def update_user_post(self, request):
-            user = endpoints.get_user()
-            return PostResponse(content=request.content)
+            author = root_model_class.get_by_name(request.author)
+            post = author.get_post(request.post_id) if author else None
+            return post.to_message()
 
         @endpoints.method(
             POST_RESOURCE,
@@ -75,8 +76,12 @@ def post_api(root_model_class, root):
             path=root + '/{author}/posts/{post_id}',
             http_method='DELETE')
         def delete_user_post(self, request):
-            user = endpoints.get_user()
-            return PostResponse(content=request.content)
+            author = root_model_class.get_by_name(request.author)
+            post = author.get_post(request.post_id) if author else None
+            if post:
+                post.key.delete()
+            else:
+                raise NotFoundException('Post not found.')
 
     PostsApi.__name__ = root_model_class.__name__ + PostsApi.__name__
     return PostsApi

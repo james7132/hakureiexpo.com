@@ -1,20 +1,15 @@
 import endpoints
+from .messages import UserMessage
+from .util import copy_attrs
+from .models import User
+from .exceptions import ConflictException, NotFoundException
 from api import api_collection
+from google.appengine.ext import ndb
 from protorpc import message_types, messages, remote
 
 
 class CurrentUserRequest(messages.Message):
     content = messages.StringField(1)
-
-
-class UserResponse(messages.Message):
-    created_at = message_types.DateTimeField(1, required=True)
-    last_updated = message_types.DateTimeField(2, required=True)
-    id = message_types.DateTimeField(3, required=True)
-    username = messages.StringField(4, required=True)
-    display_name = messages.StringField(5, required=False)
-    bio = messages.StringField(6, required=False)
-    email = messages.StringField(7, required=False)
 
 
 CURRENT_USER_RESOURCE = endpoints.ResourceContainer(CurrentUserRequest)
@@ -29,44 +24,60 @@ class UsersApi(remote.Service):
 
     @endpoints.method(
         message_types.VoidMessage,
-        UserResponse,
+        UserMessage,
         path='@me',
         http_method='GET')
     def get_current_user(self, request):
-        user = endpoints.get_user()
-        return UserResponse(content=request.content)
+        return UserMessage.from_model(User.get_current_user(),
+                                      include_email=True)
 
     @endpoints.method(
         CURRENT_USER_RESOURCE,
-        UserResponse,
+        UserMessage,
         path='@me',
         http_method='POST')
+    @ndb.transactional
     def create_current_user(self, request):
-        user = endpoints.get_user()
-        return UserResponse(content=request.content)
+        user_obj = endpoints.get_current_user()
+        ConflictException.raise_if_exists(User.get_key(user_obj))
+        user = User.create_user(user_obj)
+        user.put()
+        return UserMessage.from_model(user, include_email=True)
 
     @endpoints.method(
         CURRENT_USER_RESOURCE,
-        UserResponse,
+        UserMessage,
         path='@me',
         http_method='PUT')
     def update_current_user(self, request):
-        user = endpoints.get_user()
-        return UserResponse(content=request.content)
+        user_key = User.get_key(endpoints.get_current_user())
+        user = NotFoundException.raise_if_not_exists(user_key)
+        # TODO(james7132): Update user
+        user.put()
+        return UserMessage(user, include_email=True)
 
     @endpoints.method(
         message_types.VoidMessage,
         message_types.VoidMessage,
         path='@me',
         http_method='DELETE')
+    @ndb.transactional
     def delete_current_user(self, request):
-        user = endpoints.get_user()
-        return UserResponse(content=request.content)
+        user_key = User.get_key(endpoints.get_current_user())
+        NotFoundException.raise_if_not_exists(user_key)
+        # TODO(james7132): Delete the entire ancestor key tree under the circle
+        # TODO(james7132): Delete all circle members
+        user_key.delete()
 
     @endpoints.method(
         USER_RESOURCE,
-        UserResponse,
+        UserMessage,
         path='users/{username}',
         http_method='GET')
     def get_user(self, request):
-        return UserResponse(content=request.content)
+        user = User.get_by_name(request.username)
+        if not user:
+            msg = 'A user with the username {} does not exist.'.format(
+                username)
+            raise NotFoundException(msg)
+        return UserMessage.from_model(user)

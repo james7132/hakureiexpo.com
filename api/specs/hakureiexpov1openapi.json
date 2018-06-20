@@ -4,7 +4,21 @@
     "application/json"
   ],
   "definitions": {
-    "ApiCirclesCircleResponse": {
+    "ApiMessagesCircleMemberMessage": {
+      "properties": {
+        "is_owner": {
+          "type": "boolean"
+        },
+        "role": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ApiMessagesCircleMessage": {
       "properties": {
         "bio": {
           "type": "string"
@@ -39,25 +53,22 @@
       ],
       "type": "object"
     },
-    "ApiPostsPostListResponse": {
+    "ApiMessagesPostListMessage": {
       "properties": {
         "author_id": {
           "type": "string"
         },
         "posts": {
           "items": {
-            "$ref": "#/definitions/ApiPostsPostSummary"
+            "$ref": "#/definitions/ApiMessagesPostSummary"
           },
           "type": "array"
         }
       },
       "type": "object"
     },
-    "ApiPostsPostResponse": {
+    "ApiMessagesPostMessage": {
       "properties": {
-        "author": {
-          "type": "string"
-        },
         "author_id": {
           "type": "string"
         },
@@ -82,7 +93,6 @@
         }
       },
       "required": [
-        "author",
         "author_id",
         "created_at",
         "id",
@@ -90,7 +100,7 @@
       ],
       "type": "object"
     },
-    "ApiPostsPostSummary": {
+    "ApiMessagesPostSummary": {
       "properties": {
         "description": {
           "type": "string"
@@ -101,15 +111,7 @@
       },
       "type": "object"
     },
-    "ApiUsersCurrentUserRequest": {
-      "properties": {
-        "content": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "ApiUsersUserResponse": {
+    "ApiMessagesUserMessage": {
       "properties": {
         "bio": {
           "type": "string"
@@ -132,7 +134,7 @@
           "format": "date-time",
           "type": "string"
         },
-        "username": {
+        "name": {
           "type": "string"
         }
       },
@@ -140,8 +142,16 @@
         "created_at",
         "id",
         "last_updated",
-        "username"
+        "name"
       ],
+      "type": "object"
+    },
+    "ApiUsersCurrentUserRequest": {
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
       "type": "object"
     }
   },
@@ -168,7 +178,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiMessagesUserMessage"
             }
           }
         }
@@ -188,7 +198,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiMessagesUserMessage"
             }
           }
         }
@@ -208,7 +218,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiMessagesUserMessage"
             }
           }
         }
@@ -228,7 +238,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMessage"
             }
           }
         }
@@ -254,7 +264,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostListResponse"
+              "$ref": "#/definitions/ApiMessagesPostListMessage"
             }
           }
         }
@@ -278,7 +288,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostResponse"
+              "$ref": "#/definitions/ApiMessagesPostMessage"
             }
           }
         }
@@ -327,7 +337,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostResponse"
+              "$ref": "#/definitions/ApiMessagesPostMessage"
             }
           }
         }
@@ -352,7 +362,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostResponse"
+              "$ref": "#/definitions/ApiMessagesPostMessage"
             }
           }
         }
@@ -371,10 +381,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
-            }
+            "description": "A successful response"
           }
         }
       },
@@ -392,7 +399,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMessage"
             }
           }
         }
@@ -411,7 +418,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMessage"
             }
           }
         }
@@ -432,7 +439,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMessage"
             }
           }
         }
@@ -457,7 +464,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMemberMessage"
             }
           }
         }
@@ -482,10 +489,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
-            }
+            "description": "A successful response"
           }
         }
       },
@@ -509,7 +513,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMemberMessage"
             }
           }
         }
@@ -534,7 +538,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiCirclesCircleResponse"
+              "$ref": "#/definitions/ApiMessagesCircleMemberMessage"
             }
           }
         }
@@ -560,7 +564,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostListResponse"
+              "$ref": "#/definitions/ApiMessagesPostListMessage"
             }
           }
         }
@@ -584,7 +588,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostResponse"
+              "$ref": "#/definitions/ApiMessagesPostMessage"
             }
           }
         }
@@ -633,7 +637,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostResponse"
+              "$ref": "#/definitions/ApiMessagesPostMessage"
             }
           }
         }
@@ -658,7 +662,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiPostsPostResponse"
+              "$ref": "#/definitions/ApiMessagesPostMessage"
             }
           }
         }
@@ -679,7 +683,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/ApiUsersUserResponse"
+              "$ref": "#/definitions/ApiMessagesUserMessage"
             }
           }
         }
