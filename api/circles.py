@@ -30,6 +30,7 @@ class CirclesApi(remote.Service):
         path='circles',
         http_method='POST')
     def create_circle(self, request):
+        user = endpoints.get_user()
         return CircleResponse(content=request.content)
 
     @endpoints.method(
@@ -46,6 +47,7 @@ class CirclesApi(remote.Service):
         path='circles/{name}',
         http_method='PUT')
     def update_circle(self, request):
+        user = endpoints.get_user()
         return CircleResponse(content=request.content)
 
     @endpoints.method(
@@ -54,8 +56,8 @@ class CirclesApi(remote.Service):
         path='circles/{name}',
         http_method='DELETE')
     def delete_circle(self, request):
+        user = endpoints.get_user()
         return CircleResponse(content=request.content)
-        CIRCLE_RESOURCE,
 
     @endpoints.method(
         CIRCLE_RESOURCE,
@@ -71,6 +73,7 @@ class CirclesApi(remote.Service):
         path='circles/{name}/members',
         http_method='POST')
     def create_circle_member(self, request):
+        user = endpoints.get_user()
         return CircleResponse(content=request.content)
 
     @endpoints.method(
@@ -87,6 +90,7 @@ class CirclesApi(remote.Service):
         path='circles/{name}/members/{member_username}',
         http_method='PUT')
     def update_circle_member(self, request):
+        user = endpoints.get_user()
         return CircleResponse(content=request.content)
 
     @endpoints.method(
@@ -95,4 +99,5 @@ class CirclesApi(remote.Service):
         path='circles/{name}/members/{member_username}',
         http_method='DELETE')
     def delete_circle_member(self, request):
+        user = endpoints.get_user()
         return CircleResponse(content=request.content)
